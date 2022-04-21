@@ -1,0 +1,145 @@
+/* 
+    Created on : 2.3.2022, 15.13.54
+    Author     : Markus
+*/
+
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    background-color: limegreen;
+}
+.wrapper {
+    min-height: 100vh;
+    width: 100%;
+    background-color: lightsalmon;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+}
+nav {
+    height: 100%;
+    padding: 10px;
+    background-color: lightblue;
+    border-right-width: 5px;
+    border-right-style: ridge;
+}
+main {
+    height: 100%;
+    background-color: lightseagreen;
+    padding: 10px;
+    border-left-width: 5px;
+    border-left-style: groove;
+}
+nav li {
+    list-style: none;
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+nav ul {
+    padding-left: 30px;
+}
+h1 {
+    font-size: 30px;
+}
+#tuotteenlisaystaulukko td, #tuotteenmuokkaustaulukko td {
+    width: 200px;
+}
+#tuotteenlisaystaulukko tr, #tuotteenmuokkaustaulukko tr {
+    height: 40px;
+}
+#tuotteenlisaystaulukko td:nth-child(1), #tuotteenmuokkaustaulukko td:nth-child(1) {
+    text-align: right;
+}
+#tuotteenlisayslomake input[type=text], #tuotteenmuokkaustaulukko input[type=text] {
+    width: 400px;
+}
+#tuotteenlisayslomake input[type=number], #tuotteenmuokkaustaulukko input[type=number] {
+    width: 100px;
+    text-align: center;
+}
+.smallinput {
+    width: 40px;
+}
+#lyhytkuvaus {
+    width: 400px;
+    height: 100px;
+    resize: none;
+}
+#tuotekuvaus {
+    width: 400px;
+    height: 400px;
+    resize: none;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+.perustaulukko {
+    border-collapse: collapse;
+    border-style: solid;
+    border-width: 5px;
+}
+.perustaulukko td, .perustaulukko th {
+    border-style: solid;
+    border-width: 5px;
+    padding: 5px;
+    text-align: center;
+}
+.perustaulukko th:nth-child(1) {
+    width: 200px;
+}
+.perustaulukko th:nth-child(2) {
+    width: 250px;
+}
+.perustaulukko th:nth-child(3) {
+    width: 150px;
+}
+.price {
+    width: 100px !important;
+    text-align: center;
+}
+#tummennus {
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none;
+}
+#ilmoitustummennuksenkeskella {
+    height: 220px;
+    width: 330px;
+    z-index: 3;
+    padding: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    background-color: lightskyblue;
+    text-align: justify;
+}
+#btnilmoituksenkuittaus {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.inputhelper {
+    color: blue;
+    background-color: white;
+    margin-left: 3px;
+}
+.inputhelper:hover {
+    cursor: help;
+}
