@@ -1,5 +1,7 @@
 # PHP-harjoitustyo
 
+Tämän projektin tiedostoja voi kokeilla arvostelumielessä, mutta tätä ei kannata käyttää minkään vakavasti otettavan sivun pohjana. Syy tähän on se, ettei tämä ole valmis sivusto ja tällä sivustolla on ainakin yksi tiedossa oleva heikkous (asiakaspuolen kirjautumistoiminnon brute force-suojauksen puute). Tämän projektin tarkoituksena on osoittaa ainakin PHP:n perusteiden hallinta.
+
 ## Projektin kuvaus
 
 Tämän projektin tarkoituksena oli opetella web-ohjelmointia käyttäen PHP:tä, JavaScriptiä, tietokantakielenä MySql:ää (MariaDB xamppissa) ja perus-html:ää ja muotoilua css:n avulla. Päätavoite oli saada toiminnot toimimaan halutulla tavalla, joten värisuunnittelussa on käytetty kaupan puolella suunnittelua helpottavia divikohtaisia taustavärejä ja joidenkin sivujen sisältö on joko tyhjä tai testisisältöä. Screenshots-kansiossa on muutama kuvakaappaus sivusta.
