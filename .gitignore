@@ -1,0 +1,14 @@
+/nbproject/private/
+hylattya.js
+jquery.js
+**/julkinen/kuvat/*.jpg
+testisivu.php
+**/kaytosta poistetut/
+bootstrap.php
+.phpunit.result.cache
+composer.json
+configuration.xml
+configuration_1.xml
+json.png
+tuotesivun suunnitelma.png
+varalta.png

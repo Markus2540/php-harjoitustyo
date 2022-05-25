@@ -21,7 +21,7 @@ $tuotteennimi = $valmistaja = $hinta = $alv = $kategoria = $lyhytkuvaus =
 $tuotteennimi_err = $valmistaja_err = $hinta_err = $alv_err = $kategoria_err = 
         $lyhytkuvaus_err = $tuotekuvaus_err = $varastossa_err = $myymalassa_err = 
         $myyntialkaa_err = $kuvat_err = "";
-$uploaddir = "C:\\xampp\\htdocs\\Tietotekniikkakauppa\\julkinen\\kuvat\\";
+$uploaddir = "C:\\xampp\\htdocs\\php-harjoitustyo\\Tietotekniikkakauppa\\julkinen\\kuvat\\";
 $kuvat = [];
 $file_temp_paths = [];
 $new_file_paths = [];

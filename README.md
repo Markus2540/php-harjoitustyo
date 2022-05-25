@@ -30,7 +30,7 @@ Tiliä luodessaan tai salasanaa vaihtaessaan salasanalla on tiettyjä monimutkai
 
 ## Sivuston toimintaan saattaminen
 
-Tämän sivuston saa kokeilumielessä toimimaan xamppin kanssa helposti kopioimalla tietotekniikkakauppa-kansion sisältöineen xamppin htdocs-kansioon. Jos xampp on asennettu polkuun c:\xampp, tuotekuvien lisäämisen pitäisi toimia ilman muutoksia, mutta jos xampp on asennettu johonkin muuhun polkuun, niin tuotteidenlisaaminen.php tiedostossa pitää muokata $uploaddir-variaabelia. Tietokannan voi luoda tietokanta.sql-tiedoston komennot suorittamalla esim phpMyAdminissa.
+Tämän sivuston saa kokeilumielessä toimimaan xamppin kanssa helposti kopioimalla projektikansion sisältöineen xamppin htdocs-kansioon. Jos xampp on asennettu polkuun c:\xampp, tuotekuvien lisäämisen pitäisi toimia ilman muutoksia, mutta jos xampp on asennettu johonkin muuhun polkuun, niin tuotteidenlisaaminen.php tiedostossa pitää muokata $uploaddir-variaabelia. Tietokannan voi luoda tietokanta.sql-tiedoston komennot suorittamalla esim phpMyAdminissa.
 
 Admin-puolelle ei ole omaa tilinluontilomaketta, vaan tili pitää ensin tehdä kauppapuolen tilinluontitoiminnolla ja sen perusteella tili pitää kopioida asiakas-taulukosta henkilokunta-taulukkoon käyttämällä (phpMyAdminissa) tietokantalausetta: 
 ```
