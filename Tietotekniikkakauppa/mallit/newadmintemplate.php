@@ -1,6 +1,6 @@
 <?php
-$title = "Admintoimintojen etusivu";
-$description = "Admintoimintojen etusivu";
+$title = "replace";
+$description = "replace";
 require_once 'perusosat/headerandnav.php';
 
 ?>

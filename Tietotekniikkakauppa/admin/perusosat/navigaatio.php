@@ -8,5 +8,4 @@
     <li>-</li>
     <li>-</li>
     <li><a href="../julkinen/logout.php">Kirjaudu ulos</a></li>
-
 </ul>

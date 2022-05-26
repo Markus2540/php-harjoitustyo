@@ -64,26 +64,30 @@ if (!isset($div)) {
                     <div id="kirjautumisikkuna" class="logincontent">
                         <?php
                         if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-
                             require_once '../moduulit/kirjautumistoiminto.php';
                             //Kirjautumaton asiakas näkee tämän toiminnon rakentaman kirjautumisikkunan.
-                            echo "<h2 class=\"logincontent\">Kirjaudu</h2>";
-                            echo "<form action=\"" . puhdistus($this_page) . "\" method=\"post\" class=\"logincontent\">";
-                            //echo "<form action=\"\" method=\"post\" class=\"logincontent\">";
-                            echo "<label for=\"kayttajatunnus\" class=\"logincontent\">Käyttäjätunnus:";
-                            echo "<input type=\"text\" id=\"kayttajatunnus\" name=\"kayttajatunnus\" class=\"logincontent\"></label>";
-                            echo "<label for=\"salasana\" class=\"logincontent\">Salasana:";
-                            echo "<input type=\"password\" id=\"salasana\" name=\"salasana\" class=\"logincontent\"></label><br><br>";
-                            echo "<input type=\"submit\" value=\"Kirjaudu\" name=\"btnmainlogin\"><br><br>";
-                            echo "<a href=\"tunnustenluonti.php\">Luo tunnukset</a>";
-                            echo "</form>";
-                            echo "<p><a href=\"ostoskori.php\">Ostoskori</a></p>";
+                            ?>
+                        <h2 class="logincontent">Kirjaudu</h2>
+                        <form action="<?php echo puhdistus($this_page); ?>" method="post" class="logincontent">
+                            <label for="kayttajatunnus" class="logincontent">Käyttäjätunnus:</label>
+                            <input type="text" id="kayttajatunnus" name="kayttajatunnus" class="logincontent">
+                            <label for="salasana" class="logincontent">Salasana:</label>
+                            <input type="password" id="salasana" name="salasana" class="logincontent"><br><br>
+                            <input type="submit" value="Kirjaudu" name="btnmainlogin"><br><br>
+                            <a href="tunnustenluonti.php">Luo tunnukset</a>
+                        </form>
+                        <p><a href="ostoskori.php">Ostoskori</a></p>
+                        <?php
                         } else {
                             //Tämä näkymä rakennetaan kirjautuneelle asiakkaalle.
-                            echo "<h2 class=\"logincontent\">" . puhdistus($_SESSION["sukunimi"]) . " " . puhdistus($_SESSION["etunimi"]) . "</h2>";
-                            echo "<p><a href=\"tilinhallinta.php\">Tilinhallinta</a></p>";
-                            echo "<p><a href=\"ostoskori.php\">Ostoskori</a></p>";
-                            echo "<p><a href=logout.php>Kirjaudu ulos</a></p>";
+                            ?>
+                            <h2 class="logincontent"><?php echo 
+                                puhdistus($_SESSION["sukunimi"]) . " " . 
+                                puhdistus($_SESSION["etunimi"]); ?></h2>
+                            <p><a href="tilinhallinta.php">Tilinhallinta</a></p>
+                            <p><a href="ostoskori.php">Ostoskori</a></p>
+                            <p><a href="logout.php">Kirjaudu ulos</a></p>
+                            <?php
                         }
                         ?>
                     </div>

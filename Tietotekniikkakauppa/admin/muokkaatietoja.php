@@ -1,9 +1,7 @@
 <?php
-session_start();
-if (!isset($_SESSION["adminloggedin"]) || $_SESSION["adminloggedin"] !== true) {
-    header("location: ../julkinen/etusivu.php");
-    exit;
-}
+$title = "Tuotetietojen muokkaaminen";
+$description = "Tuotetietojen muokkaus-sivu";
+require_once 'perusosat/headerandnav.php';
 require_once '../moduulit/perustoimintoja.php';
 require_once '../moduulit/pdoconnect.php';
 require_once '../classes/DataInputValidation.php';
@@ -256,213 +254,194 @@ if (isset($_GET["id"])) {
     $stmt = null;
 }
 ?>
-<!DOCTYPE html>
-<html lang="fi">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="author" content="Markus2540">
-        <title>Tuotetietojen muokkaaminen</title>
-        <meta name="description" content="Tuotetietojen muokkaus-sivu">
-        <link rel="stylesheet" href="css/admin.css">
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self';">
-        <script defer src="javascript/inputHelper.js"></script>
-    </head>
-    <body>
-        <div class="wrapper">
-            <nav>
-                <h1>Navigointi</h1>
-                <?php require_once 'perusosat/navigaatio.php'; ?>
-            </nav>
-            <main>
-                <?php if (!empty($tuotenumero)) { ?>
-                
-                
-                <h1><?php echo puhdistus($tuote["tuotenimi"]); ?></h1>
-                <form action="<?php echo puhdistus($this_page); ?>" method="post">
-                    <table id="tuotteenmuokkaustaulukko">
-                        <tr>
-                            <td>Nimi<span class="jsproductname 
-                                                   inputhelper"> ? </span>:</td>
-                            <td><input type="text" name="uusituotteennimi" value=
-                                       "<?php echo puhdistus($tuote["tuotenimi"]);?>" 
-                                       pattern="[a-zåäöA-ZÅÄÖ0-9 ,.@-]+" required></td>
-                            <td><?php if (isset($uusituotenimi_err)) {
-                                echo $uusituotenimi_err;} ?></td>
-                        </tr>
-                        <tr>
-                            <td>Valmistaja<span class="jsproductmanufacturer 
-                                                inputhelper"> ? </span>:</td>
-                            <td><input type="text" name="uusivalmistaja" value=
-                                       "<?php echo puhdistus($tuote["valmistaja"]);?>" 
-                                       pattern="[a-zåäöA-ZÅÄÖ0-9 ,.@-]+" required></td>
-                            <td><?php if (isset($uusivalmistaja_err)) {
-                                echo $uusivalmistaja_err;} ?></td>
-                        </tr>
-                        <tr>
-                            <td>Hinta<span class="jsproductprice 
-                                            inputhelper"> ? </span>:</td>
-                            <td><input type="text" name="uusihinta" value=
-                                       "<?php echo puhdistus($tuote["hinta"]);?>" 
-                                       class="price" pattern="[0-9.]+" required></td>
-                            <td><?php if (isset($uusihinta_err)) {
-                                echo $uusihinta_err;} ?></td>
-                        </tr>
-                        <tr>
-                            <td>Alv:</td>
-                            <td><input type="number" name="uusialv" value=
-                                       "<?php echo puhdistus($tuote["alv"]);?>" 
-                                       required></td>
-                            <td><?php if (isset($uusialv_err)) {
-                                echo $uusialv_err;} ?></td>
-                        </tr>
-                        <tr>
-                            <td>Alennus<span class="jsproductdiscount 
-                                                   inputhelper"> ? </span>:</td>
-                            <td><input type="text" name="uusialennus" class="price" value=
-                                       "<?php echo puhdistus($tuote["alennus"]);?>"
-                                       pattern="[0-9.]*"></td>
-                            <td><?php if (isset($uusialennus_err)) {
-                                echo $uusialennus_err;} ?></td>
-                        </tr>
-                        <tr>
-                            <td>Ale alkaa:</td>
-                            <td><input type="datetime-local" name="uusialealkaa" value=
-                                       "<?php echo puhdistus($tuote["alealkaa"]);?>"></td>
-                            <td><?php if (isset($uusialealkaa_err)) {
-                                echo $uusialealkaa_err;} ?></td>
-                        </tr>
-                        <tr>
-                            <td>Ale loppuu:</td>
-                            <td><input type="datetime-local" name="uusialeloppuu" value=
-                                       "<?php echo puhdistus($tuote["aleloppuu"]);?>"></td>
-                            <td><?php if (isset($uusialeloppuu_err)) {
-                                echo $uusialeloppuu_err;} ?></td>
-                        </tr>
-                        <tr>
-                            <td>Kategoria:</td>
-                            <td>
-                                <select name="uusikategoria">
-                                    <optgroup label="Tietokoneet">
-                                        <option value="Esikasatut" 
-                                            <?php if ($tuote["kategoria"] === "Esikasatut"){
-                                                echo "selected";}?>>Esikasatut</option>
-                                        <option value="Kotelot" 
-                                            <?php if ($tuote["kategoria"] === "Kotelot"){
-                                                echo "selected";}?>>Kotelot</option>
-                                        <option value="Prosessorit" 
-                                            <?php if ($tuote["kategoria"] === "Prosessorit"){
-                                                echo "selected";}?>>Prosessorit</option>
-                                        <option value="Emolevyt" 
-                                            <?php if ($tuote["kategoria"] === "Emolevyt"){
-                                                echo "selected";}?>>Emolevyt</option>
-                                        <option value="Muistit" 
-                                            <?php if ($tuote["kategoria"] === "Muistit"){
-                                                echo "selected";}?>>Muistit</option>
-                                        <option value="Naytonohjaimet" 
-                                            <?php if ($tuote["kategoria"] === "Naytonohjaimet"){
-                                                echo "selected";}?>>Näytönohjaimet</option>
-                                        <option value="Kiintolevyt" 
-                                            <?php if ($tuote["kategoria"] === "Kiintolevyt"){
-                                                echo "selected";}?>>Kiintolevyt</option>
-                                        <option value="Virtalahteet" 
-                                            <?php if ($tuote["kategoria"] === "Virtalahteet"){
-                                                echo "selected";}?>>Virtalähteet</option>
-                                        <option value="Asemat" 
-                                            <?php if ($tuote["kategoria"] === "Asemat"){
-                                                echo "selected";}?>>Asemat</option>
-                                        <option value="Jaahdytys" 
-                                            <?php if ($tuote["kategoria"] === "Jaahdytys"){
-                                                echo "selected";}?>>Jäähdytys</option>
-                                        <option value="Naytot" 
-                                            <?php if ($tuote["kategoria"] === "Naytot"){
-                                                echo "selected";}?>>Näytöt</option>
-                                    </optgroup>
-                                    <option value="Tabletit" 
-                                        <?php if ($tuote["kategoria"] === "Tabletit"){
-                                            echo "selected";}?>>Tabletit ja tarvikkeet</option>
-                                    <option value="Puhelimet ja tarvikkeet" 
-                                        <?php if ($tuote["kategoria"] === "Puhelimet ja tarvikkeet"){
-                                            echo "selected";}?>>Puhelimet ja tarvikkeet</option>
-                                </select>
-                            </td>
-                            <td><?php if (isset($uusikategoria_err)) {echo $uusikategoria_err;} ?></td>
-                        </tr>
-                        <tr>
-                            <td>Lyhyt kuvaus<span class="jsproductshortdescription 
-                                                   inputhelper"> ? </span>:</td>
-                            <td><textarea name="uusilyhytkuvaus" id="lyhytkuvaus" 
-                                          pattern="[a-zåäöA-ZÅÄÖ0-9 ,.:®\s-]*" maxlength="400"><?php 
-                                          echo puhdistus($tuote["lyhytkuvaus"]);?></textarea></td>
-                            <td><span id="lyhyenkuvauksenpituus"></span>
-                                <?php if (isset($uusilyhytkuvaus_err)) {
-                                    echo $uusilyhytkuvaus_err;} ?></td>
-                        </tr>
-                        <tr>
-                            <td>Tuotekuvaus<span class="jsproductdescription 
-                                                 inputhelper"> ? </span>:</td>
-                            <td><textarea name="uusituotekuvaus" id="tuotekuvaus" 
-                                          pattern="[a-zåäöA-ZÅÄÖ0-9 ,.:®\s-]*"
-                                          ><?php echo puhdistus($tuote["tuotekuvaus"]);
-                                          ?></textarea></td>
-                            <td><?php if (isset($uusituotekuvaus_err)) {
-                                echo $uusituotekuvaus_err;} ?></td>
-                        </tr>
-                        <tr>
-                            <td>Varastossa:</td>
-                            <td><input type="number" name="uusivarastossa" value=
-                                       "<?php echo puhdistus($tuote["varastossa"]);?>" 
-                                       required></td>
-                            <td><?php if (isset($uusivarastossa_err)) {
-                                echo $uusivarastossa_err;} ?></td>
-                        </tr>
-                        <tr>
-                            <td>Myymälässä:</td>
-                            <td><input type="number" name="uusimyymalassa" value=
-                                       "<?php echo puhdistus($tuote["myymalassa"]);?>" 
-                                       required></td>
-                            <td><?php if (isset($uusimyymalassa_err)) {
-                                echo $uusimyymalassa_err;} ?></td>
-                        </tr>
-                        <tr>
-                            <td>Myynti alkaa:</td>
-                            <td><input type="datetime-local" name="uusimyyntialkaa" value=
-                                       "<?php echo puhdistus($tuote["myyntialkaa"]);?>"></td>
-                            <td><?php if (isset($uusimyyntialkaa_err)) {
-                                echo $uusimyyntialkaa_err;} ?></td>
-                        </tr>
-                        <tr>
-                            <td>Vedetty myynnistä:</td>
-                            <td><input type="datetime-local" name="uusivedettymyynnista" value=
-                                       "<?php echo puhdistus($tuote["vedettymyynnista"]);?>"></td>
-                            <td><?php if (isset($uusivedettymyynnista_err)) {
-                                echo $uusivedettymyynnista_err;} ?></td>
-                        </tr>
-                        <tr>
-                            <td>Kuvat<span class="jsproductpicture2 
-                                                 inputhelper"> ? </span>:</td>
-                            <td><input type="text" name="uusikuvat" value=
-                                       "<?php echo puhdistus($tuote["kuvat"]);?>" pattern="[a-zA-Z0-9.,]*"></td>
-                            <td><?php if (isset($uusikuvat_err)) {
-                                echo $uusikuvat_err;} ?></td>
-                        </tr>
-                    </table>
-                    <input type="submit" value="Tallenna" name="btntallennamuutokset"
-                           id="submitbtn">
-                </form>
-                
-                <?php
-                } else { ?>
-                <p><?php echo puhdistus($tuotenumero_err); ?></p>
-                <?php
-                } ?>
-            </main>
-        </div>
-        <div id="tummennus">
-            <div id="ilmoitustummennuksenkeskella">
-                <p id="ilmoituksenteksti"></p>
-                <input type="button" id="btnilmoituksenkuittaus" value="Selvä">
-            </div>
-        </div>
-    </body>
+    <main>
+    <?php if (!empty($tuotenumero)) { ?>
+        <h1><?php echo puhdistus($tuote["tuotenimi"]); ?></h1>
+        <form action="<?php echo puhdistus($this_page); ?>" method="post">
+            <table id="tuotteenmuokkaustaulukko">
+                <tr>
+                    <td>Nimi<span class="jsproductname 
+                                           inputhelper"> ? </span>:</td>
+                    <td><input type="text" name="uusituotteennimi" value=
+                               "<?php echo puhdistus($tuote["tuotenimi"]);?>" 
+                               pattern="[a-zåäöA-ZÅÄÖ0-9 ,.@-]+" required></td>
+                    <td><?php if (isset($uusituotenimi_err)) {
+                        echo $uusituotenimi_err;} ?></td>
+                </tr>
+                <tr>
+                    <td>Valmistaja<span class="jsproductmanufacturer 
+                                        inputhelper"> ? </span>:</td>
+                    <td><input type="text" name="uusivalmistaja" value=
+                               "<?php echo puhdistus($tuote["valmistaja"]);?>" 
+                               pattern="[a-zåäöA-ZÅÄÖ0-9 ,.@-]+" required></td>
+                    <td><?php if (isset($uusivalmistaja_err)) {
+                        echo $uusivalmistaja_err;} ?></td>
+                </tr>
+                <tr>
+                    <td>Hinta<span class="jsproductprice 
+                                    inputhelper"> ? </span>:</td>
+                    <td><input type="text" name="uusihinta" value=
+                               "<?php echo puhdistus($tuote["hinta"]);?>" 
+                               class="price" pattern="[0-9.]+" required></td>
+                    <td><?php if (isset($uusihinta_err)) {
+                        echo $uusihinta_err;} ?></td>
+                </tr>
+                <tr>
+                    <td>Alv:</td>
+                    <td><input type="number" name="uusialv" value=
+                               "<?php echo puhdistus($tuote["alv"]);?>" 
+                               required></td>
+                    <td><?php if (isset($uusialv_err)) {
+                        echo $uusialv_err;} ?></td>
+                </tr>
+                <tr>
+                    <td>Alennus<span class="jsproductdiscount 
+                                           inputhelper"> ? </span>:</td>
+                    <td><input type="text" name="uusialennus" class="price" value=
+                               "<?php echo puhdistus($tuote["alennus"]);?>"
+                               pattern="[0-9.]*"></td>
+                    <td><?php if (isset($uusialennus_err)) {
+                        echo $uusialennus_err;} ?></td>
+                </tr>
+                <tr>
+                    <td>Ale alkaa:</td>
+                    <td><input type="datetime-local" name="uusialealkaa" value=
+                               "<?php echo puhdistus($tuote["alealkaa"]);?>"></td>
+                    <td><?php if (isset($uusialealkaa_err)) {
+                        echo $uusialealkaa_err;} ?></td>
+                </tr>
+                <tr>
+                    <td>Ale loppuu:</td>
+                    <td><input type="datetime-local" name="uusialeloppuu" value=
+                               "<?php echo puhdistus($tuote["aleloppuu"]);?>"></td>
+                    <td><?php if (isset($uusialeloppuu_err)) {
+                        echo $uusialeloppuu_err;} ?></td>
+                </tr>
+                <tr>
+                    <td>Kategoria:</td>
+                    <td>
+                        <select name="uusikategoria">
+                            <optgroup label="Tietokoneet">
+                                <option value="Esikasatut" 
+                                    <?php if ($tuote["kategoria"] === "Esikasatut"){
+                                        echo "selected";}?>>Esikasatut</option>
+                                <option value="Kotelot" 
+                                    <?php if ($tuote["kategoria"] === "Kotelot"){
+                                        echo "selected";}?>>Kotelot</option>
+                                <option value="Prosessorit" 
+                                    <?php if ($tuote["kategoria"] === "Prosessorit"){
+                                        echo "selected";}?>>Prosessorit</option>
+                                <option value="Emolevyt" 
+                                    <?php if ($tuote["kategoria"] === "Emolevyt"){
+                                        echo "selected";}?>>Emolevyt</option>
+                                <option value="Muistit" 
+                                    <?php if ($tuote["kategoria"] === "Muistit"){
+                                        echo "selected";}?>>Muistit</option>
+                                <option value="Naytonohjaimet" 
+                                    <?php if ($tuote["kategoria"] === "Naytonohjaimet"){
+                                        echo "selected";}?>>Näytönohjaimet</option>
+                                <option value="Kiintolevyt" 
+                                    <?php if ($tuote["kategoria"] === "Kiintolevyt"){
+                                        echo "selected";}?>>Kiintolevyt</option>
+                                <option value="Virtalahteet" 
+                                    <?php if ($tuote["kategoria"] === "Virtalahteet"){
+                                        echo "selected";}?>>Virtalähteet</option>
+                                <option value="Asemat" 
+                                    <?php if ($tuote["kategoria"] === "Asemat"){
+                                        echo "selected";}?>>Asemat</option>
+                                <option value="Jaahdytys" 
+                                    <?php if ($tuote["kategoria"] === "Jaahdytys"){
+                                        echo "selected";}?>>Jäähdytys</option>
+                                <option value="Naytot" 
+                                    <?php if ($tuote["kategoria"] === "Naytot"){
+                                        echo "selected";}?>>Näytöt</option>
+                            </optgroup>
+                            <option value="Tabletit" 
+                                <?php if ($tuote["kategoria"] === "Tabletit"){
+                                    echo "selected";}?>>Tabletit ja tarvikkeet</option>
+                            <option value="Puhelimet ja tarvikkeet" 
+                                <?php if ($tuote["kategoria"] === "Puhelimet ja tarvikkeet"){
+                                    echo "selected";}?>>Puhelimet ja tarvikkeet</option>
+                        </select>
+                    </td>
+                    <td><?php if (isset($uusikategoria_err)) {echo $uusikategoria_err;} ?></td>
+                </tr>
+                <tr>
+                    <td>Lyhyt kuvaus<span class="jsproductshortdescription 
+                                           inputhelper"> ? </span>:</td>
+                    <td><textarea name="uusilyhytkuvaus" id="lyhytkuvaus" 
+                                  pattern="[a-zåäöA-ZÅÄÖ0-9 ,.:®\s-]*" maxlength="400"><?php 
+                                  echo puhdistus($tuote["lyhytkuvaus"]);?></textarea></td>
+                    <td><span id="lyhyenkuvauksenpituus"></span>
+                        <?php if (isset($uusilyhytkuvaus_err)) {
+                            echo $uusilyhytkuvaus_err;} ?></td>
+                </tr>
+                <tr>
+                    <td>Tuotekuvaus<span class="jsproductdescription 
+                                         inputhelper"> ? </span>:</td>
+                    <td><textarea name="uusituotekuvaus" id="tuotekuvaus" 
+                                  pattern="[a-zåäöA-ZÅÄÖ0-9 ,.:®\s-]*"
+                                  ><?php echo puhdistus($tuote["tuotekuvaus"]);
+                                  ?></textarea></td>
+                    <td><?php if (isset($uusituotekuvaus_err)) {
+                        echo $uusituotekuvaus_err;} ?></td>
+                </tr>
+                <tr>
+                    <td>Varastossa:</td>
+                    <td><input type="number" name="uusivarastossa" value=
+                               "<?php echo puhdistus($tuote["varastossa"]);?>" 
+                               required></td>
+                    <td><?php if (isset($uusivarastossa_err)) {
+                        echo $uusivarastossa_err;} ?></td>
+                </tr>
+                <tr>
+                    <td>Myymälässä:</td>
+                    <td><input type="number" name="uusimyymalassa" value=
+                               "<?php echo puhdistus($tuote["myymalassa"]);?>" 
+                               required></td>
+                    <td><?php if (isset($uusimyymalassa_err)) {
+                        echo $uusimyymalassa_err;} ?></td>
+                </tr>
+                <tr>
+                    <td>Myynti alkaa:</td>
+                    <td><input type="datetime-local" name="uusimyyntialkaa" value=
+                               "<?php echo puhdistus($tuote["myyntialkaa"]);?>"></td>
+                    <td><?php if (isset($uusimyyntialkaa_err)) {
+                        echo $uusimyyntialkaa_err;} ?></td>
+                </tr>
+                <tr>
+                    <td>Vedetty myynnistä:</td>
+                    <td><input type="datetime-local" name="uusivedettymyynnista" value=
+                               "<?php echo puhdistus($tuote["vedettymyynnista"]);?>"></td>
+                    <td><?php if (isset($uusivedettymyynnista_err)) {
+                        echo $uusivedettymyynnista_err;} ?></td>
+                </tr>
+                <tr>
+                    <td>Kuvat<span class="jsproductpicture2 
+                                         inputhelper"> ? </span>:</td>
+                    <td><input type="text" name="uusikuvat" value=
+                               "<?php echo puhdistus($tuote["kuvat"]);?>" pattern="[a-zA-Z0-9.,]*"></td>
+                    <td><?php if (isset($uusikuvat_err)) {
+                        echo $uusikuvat_err;} ?></td>
+                </tr>
+            </table>
+            <input type="submit" value="Tallenna" name="btntallennamuutokset"
+                   id="submitbtn">
+        </form>
+
+        <?php
+        } else { ?>
+        <p><?php echo puhdistus($tuotenumero_err); ?></p>
+        <?php
+        } ?>
+    </main>
+</div>
+<div id="tummennus">
+    <div id="ilmoitustummennuksenkeskella">
+        <p id="ilmoituksenteksti"></p>
+        <input type="button" id="btnilmoituksenkuittaus" value="Selvä">
+    </div>
+</div>
+<script defer src="javascript/inputHelper.js"></script>
+</body>
 </html>

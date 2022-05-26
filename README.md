@@ -39,4 +39,4 @@ INSERT INTO henkilokunta (etunimi, sukunimi, kayttajatunnus, salasana, lahiosoit
 
 ## Tämän projektin jatko
 
-Tässä vaiheessa uusien ominaisuuksien lisääminen saa riittää. Tähän mennessä lisätyt toiminnot toimivat kuten pitääkin, vaikkakin joitakin voisi vielä parannella, kuten sisennyksiä, PHP-koodin sijaintia ja Admin-puolen headin toisto. Tässä vaiheessa jätän tämän vielä tällaiseksi ja alan tutkimaan uusia asioita. Tämän projektin osalta suunnitelmanani on tutkia virtuaalipalvelimelle asennetun LAMP-serverin toimintaa. Tämän lisäksi alan opiskelemaan jotakin uutta, todennäköisesti Reactia.
+Tässä vaiheessa uusien ominaisuuksien lisääminen saa riittää. Tähän mennessä lisätyt toiminnot toimivat kuten pitääkin, vaikkakin joitakin voisi vielä parannella, kuten sisennyksiä ja PHP-koodin sijaintia. Tässä vaiheessa jätän tämän vielä tällaiseksi ja alan tutkimaan uusia asioita. Tämän projektin osalta suunnitelmanani on tutkia virtuaalipalvelimelle asennetun LAMP-serverin toimintaa. Tämän lisäksi alan opiskelemaan jotakin uutta, todennäköisesti Reactia.
