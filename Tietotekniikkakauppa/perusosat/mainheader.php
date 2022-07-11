@@ -2,7 +2,10 @@
 session_start();
 
 require_once '../moduulit/perustoimintoja.php';
+//require_once '../moduulit/pdoconnect.php';
 require_once '../classes/DataInputValidation.php';
+require_once '../classes/PDOStatements.php';
+$pdo_statements = new PDOStatements();
 if (!isset($div)) {
     $div = new DataInputValidation();
 }

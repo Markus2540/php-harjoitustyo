@@ -1,5 +1,5 @@
 <?php
-require_once '../moduulit/dbconnect.php';
+//require_once '../moduulit/dbconnect.php';
 
 $kayttajatunnus = $salasana = "";
 $kayttajatunnus_err = $salasana_err = "";
@@ -18,7 +18,7 @@ if (isset($_POST['btnmainlogin']) || isset($_POST['btnloginpagelogin'])) {
     }
     
     if(empty($kayttajatunnus_err) && empty($salasana_err)) {
-        $sql = "SELECT asnro, etunimi, sukunimi, kayttajatunnus, salasana, "
+        /*$sql = "SELECT asnro, etunimi, sukunimi, kayttajatunnus, salasana, "
                 . "lahiosoite, postinumero, postitoimipaikka FROM asiakas WHERE "
                 . "kayttajatunnus = ?";
         
@@ -73,7 +73,9 @@ if (isset($_POST['btnmainlogin']) || isset($_POST['btnloginpagelogin'])) {
             }
             
             mysqli_stmt_close($stmt);
-        }
+        }*/
     }
     //mysqli_close($link);
+    
+    $pdo_statements->pdo_login($kayttajatunnus, $salasana);
 }

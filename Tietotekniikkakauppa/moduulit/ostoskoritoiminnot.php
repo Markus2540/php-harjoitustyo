@@ -4,7 +4,7 @@ $maara = $tuotenumero = "";
 $maara_err = $tuotenumero_err = $virheilmoitus = "";
 
 if (isset($_POST['btnlisaakoriin'])) {
-    
+    require_once '../moduulit/pdoconnect.php';
     /*
      * Ordered amount should contain only positive integers and value must be 1 
      * or more. No error is shown to the user for this, because input field 
@@ -173,4 +173,7 @@ if (isset($_POST['btnlisaakoriin'])) {
             }
         }
     }
+    
+    $stmt = null;
+    $pdo = null;
 }

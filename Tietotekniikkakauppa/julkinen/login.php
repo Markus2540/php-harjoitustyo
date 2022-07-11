@@ -9,7 +9,8 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
     header("location: etusivu.php");
     exit;
 }
-require_once '../moduulit/dbconnect.php';
+
+/*require_once '../moduulit/dbconnect.php';
 
 $kayttajatunnus = $salasana = "";
 $kayttajatunnus_err = $salasana_err = $login_err = "";
@@ -81,15 +82,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     
     mysqli_close($link);
-}
+}*/
 ?>
 
 <main>
     <h1>Kirjaudu sisään.</h1>
     
     <?php
-    if (!empty($login_err)){
-        echo puhdistus($login_err);
+    if (isset($_SESSION["login_error"])){
+        ?><p><?php echo puhdistus($_SESSION["login_error"]); ?></p><?php
     }
     ?>
     
@@ -109,3 +110,4 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 <?php
 require_once '../perusosat/mainfooter.php';
+unset($_SESSION["login_error"]);

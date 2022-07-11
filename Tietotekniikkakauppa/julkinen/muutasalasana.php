@@ -4,7 +4,7 @@ $description = "Voit muuttaa salasanasi tällä sivulla.";
 $this_page = "muutasalasana.php";
 
 require_once '../perusosat/mainheader.php';
-require_once '../moduulit/dbconnect.php';
+//require_once '../moduulit/dbconnect.php';
 
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("location: etusivu.php");
@@ -46,7 +46,8 @@ if(isset($_POST["btnvaihdasalasana"])) {
     
     if (empty($salasana_err) && empty($uusi_salasana_err) && 
             empty($vahvista_uusi_salasana_err)) {
-        $sql = "SELECT salasana, asnro FROM asiakas WHERE asnro = ?";
+        //Replaced with pdo_statements.
+        /*$sql = "SELECT salasana, asnro FROM asiakas WHERE asnro = ?";
         
         if($stmt = mysqli_prepare($link, $sql)) {
             mysqli_stmt_bind_param($stmt, "i", $param_asnro);
@@ -85,7 +86,9 @@ if(isset($_POST["btnvaihdasalasana"])) {
                 }
             }
         }
-        mysqli_close($link);
+        mysqli_close($link);*/
+        
+        $pdo_statements->change_password($salasana, $uusi_salasana);
     }
 }
 ?>
@@ -109,20 +112,20 @@ if(isset($_POST["btnvaihdasalasana"])) {
             <tr>
                 <td>Nykyinen salasanasi: </td>
                 <td><input type="password" name="salasana" value=
-                           "<?php echo puhdistus($salasana); ?>"></td>
+                           "<?php /*echo puhdistus($salasana);*/ ?>"></td>
                 <td><?php echo puhdistus($salasana_err); ?></td>
             </tr>
             <tr>
                 <td>Uusi salasanasi: <span id="salasanaohje">?</span> </td>
                 <td><input type="password" name="uusisalasana" value=
-                           "<?php echo puhdistus($uusi_salasana); ?>" 
+                           "<?php /*echo puhdistus($uusi_salasana);*/ ?>" 
                            id="uusisalasana"></td>
                 <td><span id="salasanainfo"><?php echo puhdistus($uusi_salasana_err); ?></span></td>
             </tr>
             <tr>
                 <td>Toista uusi salasanasi: </td>
                 <td><input type="password" name="vahvistauusisalasana" value=
-                           "<?php echo puhdistus($vahvista_uusi_salasana); ?>" 
+                           "<?php /*echo puhdistus($vahvista_uusi_salasana);*/ ?>" 
                            id="uusivahvistasalasana"></td>
                 <td><span id="salasanantoistoinfo"><?php 
                 echo puhdistus($vahvista_uusi_salasana_err); ?></span></td>
@@ -131,6 +134,12 @@ if(isset($_POST["btnvaihdasalasana"])) {
         <input type="submit" value="Vaihda salasana!" name="btnvaihdasalasana">
     </form>
     <script defer src="javascript/salasananVahvuus.js"></script>
+    
+    <?php 
+    if (isset($_SESSION['password_change_error'])) {
+        ?><h2><?php echo puhdistus($_SESSION['password_change_error']); ?></h2><?php
+    }
+    ?>
     
     <div class="push"></div>
 </main>
@@ -144,3 +153,4 @@ if(isset($_POST["btnvaihdasalasana"])) {
 
 <?php
 require_once '../perusosat/mainfooter.php';
+unset($_SESSION['password_change_error']);
